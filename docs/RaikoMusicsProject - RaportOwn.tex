@@ -55,7 +55,7 @@
 % --- Page de Garde ---
 \begin{titlepage}
     \centering
-    \vspace*{1cm}m,
+    \vspace*{1cm}
     
     % Mettre le logo de ton école ici
     % \includegraphics[width=0.4\textwidth]{logo_ecole.png}\\[2cm]
@@ -86,19 +86,14 @@
 \section*{Résumé}
 \addcontentsline{toc}{section}{Résumé}
 
-Ce document représente le rapport sur le travail réalisé durant la pratique concernant 
-le projet Raiko Musics Project. C'est une application en ligne de diffusion de musique 
-destinée à être facile, rapide et peu encombrante. Le but essentiel de ce projet était de type
-didactique, visant à développer et approfondir des connaissances dans diverses technologies
-modernes, en particulier le streaming audio, l'établissement de pipelines d'intégration et de
-déploiements continus (CI/CD) avec GitHub Actions, ainsi que l’orchestration de services 
-conteneurisés à l'aide de Docker.
-Ce rapport décrit l'intégralité du processus adopté, depuis la mise en place des objectifs 
-et du cahier des charges à l’implémentation technique et à l’approbation des fonctionnalités. 
-Il décrit l'architecture logicielle choisie, les décisions technologiques prises, ainsi
-que les obstacles rencontrés et les réponses apportées. Le résultat est une application 
-opérationnelle déployée automatiquement et accessible sur internet, constituant une base 
-solide pour des évolutions à venir.
+Ce document constitue le rapport du projet Raiko Musics Project. 
+C'est une application Web de streaming musical destiné à être simple et 
+minimaliste. Le but principal de ce projet était de servir de prétexte afin 
+d'affiner mes connaissances, et d'apprendre de nouvelles technologie, en particulier tout 
+ce qui entour le domain du DevOps avec l'établissement de pipelines d'integration et de 
+déploiement continus (CI/CD) avec GitHub Actions, ainsi que l'orchestration de conteuneurs Docker.
+Ce rapport explique l'intégralité du processus adopté, ... a faire quand le document sera finis par 80\%
+
 \vspace{1cm}
 \textbf{Mots-clés :} Streaming audio, DevOps, CI/CD, GitHub Actions, Docker, Application Web.
 
@@ -119,22 +114,20 @@ solide pour des évolutions à venir.
 
 \section{Introduction}
 
-Dans le cadre de ma formation de 4ème année, il m'a été demandé de réaliser un projet fictif afin de m'entraîner pour le TPI à venir. 
-J'ai choisi de développer une application web de streaming musical nommée RaikoMusics. 
-L'objectif principal n'est pas de créer de la concurrence, mais plutôt d'utiliser ce projet 
-comme un prétexte pour apprendre un ensemble de technologies clés dans le domaine du développement 
-logiciel et du DevOps.
+Dans le cadre de ma 4ème année de formation CFC, il m'a été demandé de crée un projet 
+d'entraînement afin de me préparer au futur Travail Pratique Individuel (TPI) qui décidera
+la suite de mon parcours professionel.
+L'objectif principal de la création du projet Raiko Musics Project n'est pas de faire de la 
+concurrence à d'autres géant du domaine de streaming musical, mais d'avoir un prétexte afin
+d'apprendre un ensemple de technologie clé dans le domaine du DevOps. 
 
-La problématique centrale de ce projet était donc : comment concevoir, développer et déployer une application 
-web moderne en automatisant au maximum le processus de mise en production ? Ce défi englobe des 
-aspects variés tels que le développement backend pour la gestion des pistes audio, le développement frontend pour 
-l'interface utilisateur, la mise en place d'une solution de streaming efficace, et surtout, la création d'un 
-pipeline CI/CD robuste.
+La problématique fictif du projet était : avoir une application simple, accessible et rapide 
+pour écouter et publier de la music sans téléchargement ni compte requis.
 
-Ce rapport retrace toutes les étapes de ce projet. Il débutera par la présentation du cahier des charges qui a 
-défini le périmètre du travail. Ensuite, la phase d'analyse et de conception décrira l'architecture logicielle 
-et les choix technologiques. La partie implémentation détaillera le processus de développement et les défis 
-techniques surmontés. Enfin, la conclusion dressera le bilan du projet et esquissera les pistes d'améliorations futures.
+La problématique réel du projet était : Comment concevoir, développer er déployer une application
+web moderne en automatisant au maximum le processus de mise à jour ? Ce défi comprend des aspects
+varié tel que la gestion d'un serveur cloud, le développement backend pour la gestions des 
+conteuneurs, et surtout la création du pipeline CI/CD.
 
 \section{Cahier des Charges}
 

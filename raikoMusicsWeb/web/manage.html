@@ -1,151 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manage Melodies</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=Yuji+Syuku&family=Material+Symbols+Outlined&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=Yuji+Syuku&family=Material+Symbols+Outlined&display=swap"
+    />
     <style>
-        :root {
-            --bg-start: #1e293b;
-            --bg-end: #0f172a;
-            --text-main: #e2e8f0;
-            --text-header: #f8fafc;
-            --accent-red: #f87171;
-            --border-color: #475569;
-            --panel-bg: rgba(26, 32, 44, 0.85);
-            --shadow-color: rgba(0, 0, 0, 0.3);
-        }
+      :root {
+        --bg-start: #1e293b;
+        --bg-end: #0f172a;
+        --text-main: #e2e8f0;
+        --text-header: #f8fafc;
+        --accent-red: #f87171;
+        --border-color: #475569;
+        --panel-bg: rgba(26, 32, 44, 0.85);
+        --shadow-color: rgba(0, 0, 0, 0.3);
+      }
 
-        body {
-            font-family: 'Kiwi Maru', serif;
-            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
-            color: var(--text-main);
-        }
+      body {
+        font-family: "Kiwi Maru", serif;
+        background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+        color: var(--text-main);
+      }
 
-        h1,
-        h2,
-        h3 {
-            font-family: 'Yuji Syuku', serif;
-            color: var(--text-header);
-        }
+      h1,
+      h2,
+      h3 {
+        font-family: "Yuji Syuku", serif;
+        color: var(--text-header);
+      }
 
-        /* Canvas for background effect */
-        .fixed-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
+      /* Canvas for background effect */
+      .fixed-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
 
-        .shrine-panel {
-            background: var(--panel-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 40px var(--shadow-color);
-        }
+      .shrine-panel {
+        background: var(--panel-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--border-color);
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 40px var(--shadow-color);
+      }
 
-        .list-item {
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.3s;
-        }
+      .list-item {
+        border-bottom: 1px solid var(--border-color);
+        transition: background-color 0.3s;
+      }
 
-        .list-item:hover {
-            background-color: rgba(248, 113, 113, 0.1);
-        }
+      .list-item:hover {
+        background-color: rgba(248, 113, 113, 0.1);
+      }
 
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            z-index: 50;
-            transition: opacity 0.3s ease-in-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        z-index: 50;
+        transition: opacity 0.3s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-        .overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+      .overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
 
-        /* Toast Notification */
-        #toast-notification {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            background-color: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-header);
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-            pointer-events: none;
-        }
+      /* Toast Notification */
+      #toast-notification {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        background-color: var(--panel-bg);
+        border: 1px solid var(--border-color);
+        color: var(--text-header);
+        z-index: 100;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+        pointer-events: none;
+      }
 
-        #toast-notification.show {
-            opacity: 1;
-            visibility: visible;
-        }
+      #toast-notification.show {
+        opacity: 1;
+        visibility: visible;
+      }
 
-        /* Custom Scrollbar */
-        #music-list-container::-webkit-scrollbar {
-            width: 8px;
-        }
+      /* Custom Scrollbar */
+      #music-list-container::-webkit-scrollbar {
+        width: 8px;
+      }
 
-        #music-list-container::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-        }
+      #music-list-container::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+      }
 
-        #music-list-container::-webkit-scrollbar-thumb {
-            background-color: var(--border-color);
-            border-radius: 4px;
-        }
+      #music-list-container::-webkit-scrollbar-thumb {
+        background-color: var(--border-color);
+        border-radius: 4px;
+      }
 
-        #music-list-container::-webkit-scrollbar-thumb:hover {
-            background-color: var(--accent-red);
-        }
+      #music-list-container::-webkit-scrollbar-thumb:hover {
+        background-color: var(--accent-red);
+      }
     </style>
-</head>
+  </head>
 
-<body class="theme-night">
+  <body class="theme-night">
     <!-- Background Canvas -->
     <canvas id="barrier-canvas" class="fixed-canvas"></canvas>
 
     <main class="max-w-4xl mx-auto p-4 md:p-8 h-screen">
-        <div class="shrine-panel p-6 md:p-8 h-full flex flex-col">
-            <div class="flex justify-between items-center mb-6 flex-shrink-0">
-                <h1 class="text-3xl">Manage Melodies</h1>
-                <a href="index.html"
-                    class="px-4 py-2 text-sm bg-red-500/20 rounded-lg hover:bg-red-500/30 transition text-[var(--accent-red)]">Back
-                    to Player</a>
-            </div>
-
-            <div id="music-list-container" class="flex-grow space-y-2 overflow-y-auto pr-2">
-                <!-- Music list will be injected here -->
-                <p id="loading-message" class="text-center text-gray-400">Loading library...</p>
-            </div>
+      <div class="shrine-panel p-6 md:p-8 h-full flex flex-col">
+        <div class="flex justify-between items-center mb-6 flex-shrink-0">
+          <h1 class="text-3xl">Manage Melodies</h1>
+          <a
+            href="index.html"
+            class="px-4 py-2 text-sm bg-red-500/20 rounded-lg hover:bg-red-500/30 transition text-[var(--accent-red)]"
+            >Back to Player</a
+          >
         </div>
+
+        <div
+          id="music-list-container"
+          class="flex-grow space-y-2 overflow-y-auto pr-2"
+        >
+          <!-- Music list will be injected here -->
+          <p id="loading-message" class="text-center text-gray-400">
+            Loading library...
+          </p>
+        </div>
+      </div>
     </main>
 
     <!-- Toast Notification -->
@@ -153,141 +161,156 @@
 
     <!-- Delete Confirmation Modal -->
     <div id="delete-modal" class="overlay hidden">
-        <div class="shrine-panel w-full max-w-sm p-8 text-center">
-            <h2 class="text-xl mb-4">Are you sure?</h2>
-            <p id="delete-modal-message" class="text-gray-400 mb-6">This action cannot be undone.</p>
-            <div class="flex justify-center space-x-4">
-                <button id="cancel-delete-btn"
-                    class="px-6 py-2 text-sm rounded-lg hover:bg-gray-500/20 transition">Cancel</button>
-                <button id="confirm-delete-btn"
-                    class="px-6 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition">Delete</button>
-            </div>
+      <div class="shrine-panel w-full max-w-sm p-8 text-center">
+        <h2 class="text-xl mb-4">Are you sure?</h2>
+        <p id="delete-modal-message" class="text-gray-400 mb-6">
+          This action cannot be undone.
+        </p>
+        <div class="flex justify-center space-x-4">
+          <button
+            id="cancel-delete-btn"
+            class="px-6 py-2 text-sm rounded-lg hover:bg-gray-500/20 transition"
+          >
+            Cancel
+          </button>
+          <button
+            id="confirm-delete-btn"
+            class="px-6 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+          >
+            Delete
+          </button>
         </div>
+      </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Background Effects ---
-            const barrierCanvas = document.getElementById("barrier-canvas");
-            const btx = barrierCanvas.getContext("2d");
-            let barrierLines = [];
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- Background Effects ---
+        const barrierCanvas = document.getElementById("barrier-canvas");
+        const btx = barrierCanvas.getContext("2d");
+        let barrierLines = [];
 
-            function resizeCanvas() {
-                barrierCanvas.width = window.innerWidth;
-                barrierCanvas.height = window.innerHeight;
+        function resizeCanvas() {
+          barrierCanvas.width = window.innerWidth;
+          barrierCanvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        class BarrierLine {
+          constructor() {
+            const colors = ["185, 28, 28", "194, 65, 12"]; // Dark Red, Dark Orange
+            this.y = Math.random() * window.innerHeight;
+            this.speed = 0.2 + Math.random() * 0.5;
+            this.opacity = 0.05 + Math.random() * 0.1;
+            this.color = colors[Math.floor(Math.random() * colors.length)];
+          }
+          update() {
+            this.y -= this.speed;
+            if (this.y < 0) {
+              this.y = window.innerHeight;
             }
-            window.addEventListener("resize", resizeCanvas);
-            resizeCanvas();
+          }
+          draw(ctx) {
+            ctx.strokeStyle = `rgba(${this.color}, ${this.opacity})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, this.y);
+            ctx.lineTo(window.innerWidth, this.y);
+            ctx.stroke();
+          }
+        }
 
-            class BarrierLine {
-                constructor() {
-                    const colors = ['185, 28, 28', '194, 65, 12']; // Dark Red, Dark Orange
-                    this.y = Math.random() * window.innerHeight;
-                    this.speed = 0.2 + Math.random() * 0.5;
-                    this.opacity = 0.05 + Math.random() * 0.1;
-                    this.color = colors[Math.floor(Math.random() * colors.length)];
-                }
-                update() {
-                    this.y -= this.speed;
-                    if (this.y < 0) {
-                        this.y = window.innerHeight;
-                    }
-                }
-                draw(ctx) {
-                    ctx.strokeStyle = `rgba(${this.color}, ${this.opacity})`;
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.moveTo(0, this.y);
-                    ctx.lineTo(window.innerWidth, this.y);
-                    ctx.stroke();
-                }
-            }
+        for (let i = 0; i < 50; i++) {
+          barrierLines.push(new BarrierLine());
+        }
 
-            for (let i = 0; i < 50; i++) {
-                barrierLines.push(new BarrierLine());
-            }
+        function animateBackground() {
+          btx.clearRect(0, 0, barrierCanvas.width, barrierCanvas.height);
+          barrierLines.forEach((line) => {
+            line.update();
+            line.draw(btx);
+          });
+          requestAnimationFrame(animateBackground);
+        }
+        animateBackground();
 
-            function animateBackground() {
-                btx.clearRect(0, 0, barrierCanvas.width, barrierCanvas.height);
-                barrierLines.forEach(line => {
-                    line.update();
-                    line.draw(btx);
-                });
-                requestAnimationFrame(animateBackground);
-            }
-            animateBackground();
+        // --- Page Logic ---
+        const musicListContainer = document.getElementById(
+          "music-list-container"
+        );
+        const loadingMessage = document.getElementById("loading-message");
+        const toast = document.getElementById("toast-notification");
+        const deleteModal = document.getElementById("delete-modal");
+        const deleteModalMessage = document.getElementById(
+          "delete-modal-message"
+        );
+        const cancelDeleteBtn = document.getElementById("cancel-delete-btn");
+        const confirmDeleteBtn = document.getElementById("confirm-delete-btn");
 
+        let musicLibrary = [];
+        let songToDelete = null;
 
-            // --- Page Logic ---
-            const musicListContainer = document.getElementById('music-list-container');
-            const loadingMessage = document.getElementById('loading-message');
-            const toast = document.getElementById('toast-notification');
-            const deleteModal = document.getElementById('delete-modal');
-            const deleteModalMessage = document.getElementById('delete-modal-message');
-            const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
-            const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+        function showToast(message) {
+          toast.textContent = message;
+          toast.classList.add("show");
+          setTimeout(() => {
+            toast.classList.remove("show");
+          }, 2000);
+        }
 
-            let musicLibrary = [];
-            let songToDelete = null;
+        function openDeleteModal(song) {
+          songToDelete = song;
+          deleteModalMessage.textContent = `You are about to permanently delete "${song.title}". This action cannot be undone.`;
+          deleteModal.classList.remove("hidden");
+        }
 
-            function showToast(message) {
-                toast.textContent = message;
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 2000);
-            }
+        function closeDeleteModal() {
+          songToDelete = null;
+          deleteModal.classList.add("hidden");
+        }
 
-            function openDeleteModal(song) {
-                songToDelete = song;
-                deleteModalMessage.textContent = `You are about to permanently delete "${song.title}". This action cannot be undone.`;
-                deleteModal.classList.remove('hidden');
-            }
+        async function deleteSong() {
+          if (!songToDelete) return;
 
-            function closeDeleteModal() {
-                songToDelete = null;
-                deleteModal.classList.add('hidden');
-            }
+          try {
+            const response = await fetch(
+              `http://34.79.6.219/api/music/delete/${songToDelete.id}`,
+              {
+                method: "DELETE",
+              }
+            );
 
-            async function deleteSong() {
-                if (!songToDelete) return;
+            const result = await response.json();
 
-                try {
-                    const response = await fetch(`http://34.79.6.219/api/music/delete/${songToDelete.id}`, {
-                        method: 'DELETE',
-                    });
-
-                    const result = await response.json();
-
-                    if (!response.ok || !result.success) {
-                        throw new Error(result.message || 'Failed to delete song.');
-                    }
-
-                    showToast(`"${songToDelete.title}" was deleted.`);
-
-                    // Remove from local list and re-render
-                    musicLibrary = musicLibrary.filter(s => s.id !== songToDelete.id);
-                    renderMusicList();
-
-                } catch (error) {
-                    console.error('Error deleting song:', error);
-                    showToast(error.message || 'An error occurred.');
-                } finally {
-                    closeDeleteModal();
-                }
+            if (!response.ok || !result.success) {
+              throw new Error(result.message || "Failed to delete song.");
             }
 
-            function renderMusicList() {
-                musicListContainer.innerHTML = '';
-                if (musicLibrary.length === 0) {
-                    musicListContainer.innerHTML = `<p class="text-center text-gray-400">Your music library is empty.</p>`;
-                    return;
-                }
+            showToast(`"${songToDelete.title}" was deleted.`);
 
-                musicLibrary.forEach(song => {
-                    const div = document.createElement('div');
-                    div.className = 'list-item flex items-center p-3 rounded-lg';
-                    div.innerHTML = `
+            // Remove from local list and re-render
+            musicLibrary = musicLibrary.filter((s) => s.id !== songToDelete.id);
+            renderMusicList();
+          } catch (error) {
+            console.error("Error deleting song:", error);
+            showToast(error.message || "An error occurred.");
+          } finally {
+            closeDeleteModal();
+          }
+        }
+
+        function renderMusicList() {
+          musicListContainer.innerHTML = "";
+          if (musicLibrary.length === 0) {
+            musicListContainer.innerHTML = `<p class="text-center text-gray-400">Your music library is empty.</p>`;
+            return;
+          }
+
+          musicLibrary.forEach((song) => {
+            const div = document.createElement("div");
+            div.className = "list-item flex items-center p-3 rounded-lg";
+            div.innerHTML = `
                     <div class="flex-grow flex items_baseline gap-2">
                         <div class="flex-shrink-0">
                         <img src="${song.coverUrl}" alt="${song.title}" class="w-12 h-12 rounded-md mr-4">
@@ -308,62 +331,65 @@
                         </div>
                     `;
 
-                    const editBtn = div.querySelector('.edit-btn');
-                    editBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        showToast('Edit functionality is coming soon!');
-                    });
-
-                    const deleteBtn = div.querySelector('.delete-btn');
-                    deleteBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        openDeleteModal(song);
-                    });
-
-                    musicListContainer.appendChild(div);
-                });
-            }
-
-            async function initialize() {
-                try {
-                    const response = await fetch('http://34.79.6.219/api/music/get/list');
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    const result = await response.json();
-
-                    if (result.success && Array.isArray(result.data)) {
-                        musicLibrary = result.data.map(song => ({
-                            id: song.id,
-                            artist: song.artist || 'Unknown Artist',
-                            title: song.title || 'Unknown Title',
-                            coverUrl: `http://34.79.6.219/musicstream/${song.id}/cover.jpg`,
-                        }));
-                    } else {
-                        throw new Error('API did not return a successful response or data is not an array.');
-                    }
-                } catch (error) {
-                    console.error("Could not fetch music library:", error);
-                    musicListContainer.innerHTML = `<p class="text-center text-red-400">Could not load music library. Please try again later.</p>`;
-                    musicLibrary = [];
-                } finally {
-                    loadingMessage.remove();
-                    renderMusicList();
-                }
-            }
-
-            // Modal event listeners
-            cancelDeleteBtn.addEventListener('click', closeDeleteModal);
-            confirmDeleteBtn.addEventListener('click', deleteSong);
-            deleteModal.addEventListener('click', (e) => {
-                if (e.target === deleteModal) {
-                    closeDeleteModal();
-                }
+            const editBtn = div.querySelector(".edit-btn");
+            editBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              showToast("Edit functionality is coming soon!");
             });
 
-            initialize();
-        });
-    </script>
-</body>
+            const deleteBtn = div.querySelector(".delete-btn");
+            deleteBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              openDeleteModal(song);
+            });
 
+            musicListContainer.appendChild(div);
+          });
+        }
+
+        async function initialize() {
+          try {
+            const response = await fetch(
+              "http://34.79.6.219/api/music/get/list"
+            );
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const result = await response.json();
+
+            if (result.success && Array.isArray(result.data)) {
+              musicLibrary = result.data.map((song) => ({
+                id: song.id,
+                artist: song.artist || "Unknown Artist",
+                title: song.title || "Unknown Title",
+                coverUrl: `http://34.79.6.219/musicstream/${song.id}/cover.jpg`,
+              }));
+            } else {
+              throw new Error(
+                "API did not return a successful response or data is not an array."
+              );
+            }
+          } catch (error) {
+            console.error("Could not fetch music library:", error);
+            musicListContainer.innerHTML = `<p class="text-center text-red-400">Could not load music library. Please try again later.</p>`;
+            musicLibrary = [];
+          } finally {
+            loadingMessage.remove();
+            renderMusicList();
+          }
+        }
+
+        // Modal event listeners
+        cancelDeleteBtn.addEventListener("click", closeDeleteModal);
+        confirmDeleteBtn.addEventListener("click", deleteSong);
+        deleteModal.addEventListener("click", (e) => {
+          if (e.target === deleteModal) {
+            closeDeleteModal();
+          }
+        });
+
+        initialize();
+      });
+    </script>
+  </body>
 </html>
