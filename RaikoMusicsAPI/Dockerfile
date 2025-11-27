@@ -11,4 +11,4 @@ VOLUME /var/www/music
 
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+CMD [ "node", "src/index.js" ]
