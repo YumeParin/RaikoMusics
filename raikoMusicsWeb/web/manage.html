@@ -184,9 +184,22 @@
     </div>
 
     <script type="module">
-      const response = await fetch("./data.json");
-      const jsonData = await response.json();
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", async () => {
+        // 1) Charger la config de manière sûre
+        let jsonData = { SERVER_URL: "" };
+
+        try {
+          const response = await fetch("./data.json");
+          if (!response.ok) {
+            console.error("Failed to load data.json, status:", response.status);
+          } else {
+            jsonData = await response.json();
+          }
+        } catch (err) {
+          console.error("Error while loading data.json:", err);
+          // tu peux mettre une valeur par défaut ici si tu veux
+          // jsonData.SERVER_URL = "https://ton-backend-par-défaut";
+        }
         // --- Background Effects ---
         const barrierCanvas = document.getElementById("barrier-canvas");
         const btx = barrierCanvas.getContext("2d");

@@ -6,7 +6,7 @@ set -euo pipefail
 docker-compose down -v
 
 echo "Building new Docker images..."
-docker-compose build --no-cache
+docker-compose build --no-cache --pull
 
 echo "Launching de Shrine the Melodies..."
 docker-compose up -d 
