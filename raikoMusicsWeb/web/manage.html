@@ -183,7 +183,9 @@
       </div>
     </div>
 
-    <script>
+    <script type="module">
+      const response = await fetch("./data.json");
+      const jsonData = await response.json();
       document.addEventListener("DOMContentLoaded", () => {
         // --- Background Effects ---
         const barrierCanvas = document.getElementById("barrier-canvas");
@@ -275,7 +277,7 @@
 
           try {
             const response = await fetch(
-              `http://34.79.6.219/api/music/delete/${songToDelete.id}`,
+              `${jsonData.SERVER_URL}/api/music/delete/${songToDelete.id}`,
               {
                 method: "DELETE",
               }
@@ -350,7 +352,7 @@
         async function initialize() {
           try {
             const response = await fetch(
-              "http://34.79.6.219/api/music/get/list"
+              `${jsonData.SERVER_URL}/api/music/get/list`
             );
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
@@ -362,7 +364,7 @@
                 id: song.id,
                 artist: song.artist || "Unknown Artist",
                 title: song.title || "Unknown Title",
-                coverUrl: `http://34.79.6.219/musicstream/${song.id}/cover.jpg`,
+                coverUrl: `${jsonData.SERVER_URL}/musicstream/${song.id}/cover.jpg`,
               }));
             } else {
               throw new Error(

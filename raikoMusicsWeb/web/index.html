@@ -417,7 +417,9 @@
       </button>
     </div>
 
-    <script>
+    <script type="module">
+      const response = await fetch("./data.json");
+      const jsonData = await response.json();
       document.addEventListener("DOMContentLoaded", () => {
         // --- Background Effects (omitted for brevity) ---
         const effectsCanvas = document.getElementById("effects-canvas"),
@@ -881,7 +883,7 @@
           formData.append("cover", coverFile);
 
           const xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://34.79.6.219/api/music/upload", true);
+          xhr.open("POST", `${jsonData.SERVER_URL}/api/music/upload`, true);
           uploadProgressContainer.classList.remove("hidden");
           uploadStatusMessage.textContent = "Uploading 0%";
           uploadProgressBar.style.width = "0%";
@@ -931,7 +933,7 @@
         async function initializePlayer() {
           try {
             const response = await fetch(
-              "http://34.79.6.219/api/music/get/list"
+              `${jsonData.SERVER_URL}/api/music/get/list`
             );
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
@@ -943,8 +945,8 @@
                 id: song.id,
                 artist: song.artist || "Unknown Artist",
                 title: song.title || "Unknown Title",
-                coverUrl: `http://34.79.6.219/musicstream/${song.id}/cover.jpg`,
-                audioUrl: `http://34.79.6.219/musicstream/${song.id}/song.mp3`,
+                coverUrl: `${jsonData.SERVER_URL}/musicstream/${song.id}/cover.jpg`,
+                audioUrl: `${jsonData.SERVER_URL}/musicstream/${song.id}/song.mp3`,
               }));
               // The playlist is now initialized as empty at the top.
             } else {
