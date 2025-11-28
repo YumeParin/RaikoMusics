@@ -12,14 +12,11 @@ const createWindow = () => {
     width: 1200,
     height: 800,
     webPreferences: {
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
 
-  // and load the index.html of the app.
-  // mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
   mainWindow.loadURL("http://34.79.6.219");
 
   // Open the DevTools.
