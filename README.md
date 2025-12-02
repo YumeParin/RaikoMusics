@@ -11,47 +11,48 @@
 RaikoMusics is a lightweight music streaming application designed for simplicity and speed. It provides an intuitive interface for users to listen to music and for artists to publish their work.
 
 Primarily, RaikoMusics serves as a learning project to explore and implement various DevOps technologies. With the first stable version now online, the project provides a solid foundation for many future enhancements, such as upgrading the audio streaming from HTTP range requests to HLS (HTTP Live Streaming), implementing user management, adding playlist creation, developing a recommendation algorithm, and much more!
+
 </h3>
 
 ## Screenshots
 
 <div align="center">
   <p><em>Web Application:</em></p>
-  <img src="docs/web-app.png" alt="RaikoMusics Web Application" width="700">
+  <img src="docs/images/ManageButton.png" alt="RaikoMusics Web Application" width="700">
 </div>
 
 <br>
 
 <div align="center">
   <p><em>Desktop Application:</em></p>
-  <img src="docs/desktop-app.png" alt="RaikoMusics Desktop Application" width="700">
+  <img src="docs/images/desktop-app.png" alt="RaikoMusics Desktop Application" width="700">
 </div>
 
 ## Key Features
 
-* **Self-Hosted Library**: Host and manage your personal music collection on your own server.
-* **Simple Management**: An easy-to-use management page for uploading and organizing your music.
-* **Web and Desktop Clients**: Access your music from a web browser or through a dedicated desktop application.
-* **Containerized with Docker**: The entire application is packaged with Docker, making setup and deployment straightforward.
-* **Automated CI/CD**: Includes a GitHub Actions workflow to automate the building and deployment process.
+- **Self-Hosted Library**: Host and manage your personal music collection on your own server.
+- **Simple Management**: An easy-to-use management page for uploading and organizing your music.
+- **Web and Desktop Clients**: Access your music from a web browser or through a dedicated desktop application.
+- **Containerized with Docker**: The entire application is packaged with Docker, making setup and deployment straightforward.
+- **Automated CI/CD**: Includes a GitHub Actions workflow to automate the building and deployment process.
 
 ## Architecture Overview
 
 RaikoMusics is composed of several distinct services that work together, all managed by `docker-compose`. This separation makes the system easier to maintain and scale.
 
-* **`RaikoMusicsAPI`**: The central API, built with Node.js and Express, that handles core logic like file uploads and music metadata.
-* **`AudioStreamServer`**: A simple and efficient Nginx server dedicated to streaming audio files to the clients.
-* **`raikoMusicsWeb`**: A static web server that hosts the frontend for the web player and the management interface.
-* **`raikomusics`**: The native desktop application built with Electron, which provides the same experience as the web client in a standalone app.
+- **`RaikoMusicsAPI`**: The central API, built with Node.js and Express, that handles core logic like file uploads and music metadata.
+- **`AudioStreamServer`**: A simple and efficient Nginx server dedicated to streaming audio files to the clients.
+- **`raikoMusicsWeb`**: A static web server that hosts the frontend for the web player and the management interface.
+- **`raikomusics`**: The native desktop application built with Electron, which provides the same experience as the web client in a standalone app.
 
 ## Technology Stack
 
-* **Backend API**: Node.js, Express
-* **Web Server / Reverse Proxy**: Nginx (used as the main reverse proxy for the server and for serving audio files within the `AudioStreamServer` container)
-* **Frontend**: HTML5, CSS3, JavaScript
-* **Desktop App**: Electron
-* **Containerization**: Docker, Docker Compose
-* **CI/CD**: GitHub Actions
+- **Backend API**: Node.js, Express
+- **Web Server / Reverse Proxy**: Nginx (used as the main reverse proxy for the server and for serving audio files within the `AudioStreamServer` container)
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Desktop App**: Electron
+- **Containerization**: Docker, Docker Compose
+- **CI/CD**: GitHub Actions
 
 ## Getting Started
 
@@ -61,13 +62,13 @@ To set up the RaikoMusics platform, you will need a server environment with Dock
 
 Please ensure you have the following software installed on your server:
 
-  * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  * [Docker](https://docs.docker.com/get-docker/)
-  * [Docker Compose](https://docs.docker.com/compose/install/)
-  * [Nginx](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/)
-  * [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- [Nginx](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/)
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
------
+---
 
 ## Installation and Execution
 
@@ -107,7 +108,7 @@ Before launching the application, you must configure Nginx to correctly route re
 
         # Route to the backend API
         location /api/ {
-            client_max_body_size 50M; 
+            client_max_body_size 50M;
             proxy_pass http://localhost:6999/;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
@@ -146,20 +147,20 @@ Before launching the application, you must configure Nginx to correctly route re
 
     This command will build the Docker images for each service and start the containers in detached mode.
 
------
+---
 
 ## Configuration (Crucial Step)
 
 ⚠️ **Important**: The project's frontend code contains hardcoded IP addresses from the original development environment (e.g., `https://35.79.6.219`). You **must** replace these with your server's IP address or domain name for the application to work correctly.
 
------
+---
 
 ## Usage
 
 Once the services are running and correctly configured, the platform will be accessible.
 
-  * **Web Application**: `http://your_server_IP`
-  * **API Base URL**: `http://your_server_IP/api`
+- **Web Application**: `http://your_server_IP`
+- **API Base URL**: `http://your_server_IP/api`
 
 ### API Endpoints
 
@@ -167,30 +168,30 @@ Here are the available API endpoints:
 
 #### Upload Music
 
-  * **Endpoint**: `POST /api/music/upload`
-  * **Description**: Uploads a new song, cover, and metadata.
-  * **Body**: `form-data`
-      * `artist` (string): The name of the artist.
-      * `title` (string): The title of the song.
-      * `cover` (file): The album cover image. Accepted formats: `webp`, `png`, `jpg`. Max size: 50MB.
-      * `song` (file): The audio file. Accepted format: `mp3`. Max size: 50MB.
+- **Endpoint**: `POST /api/music/upload`
+- **Description**: Uploads a new song, cover, and metadata.
+- **Body**: `form-data`
+  - `artist` (string): The name of the artist.
+  - `title` (string): The title of the song.
+  - `cover` (file): The album cover image. Accepted formats: `webp`, `png`, `jpg`. Max size: 50MB.
+  - `song` (file): The audio file. Accepted format: `mp3`. Max size: 50MB.
 
 #### Get Music List
 
-  * **Endpoint**: `GET /api/music/get/list`
-  * **Description**: Retrieves a JSON list of all available music. Each object in the list contains an `id`, `title`, and `artist`.
+- **Endpoint**: `GET /api/music/get/list`
+- **Description**: Retrieves a JSON list of all available music. Each object in the list contains an `id`, `title`, and `artist`.
 
 #### Delete Music
 
-  * **Endpoint**: `DELETE /api/music/delete/<id>`
-  * **Description**: Deletes a song from the server using its unique ID.
-  * **Example**: `/api/music/delete/12345`
+- **Endpoint**: `DELETE /api/music/delete/<id>`
+- **Description**: Deletes a song from the server using its unique ID.
+- **Example**: `/api/music/delete/12345`
 
 ### How File Streaming Works
 
 When you upload a song via the `POST /api/music/upload` endpoint, the files are saved into a local Docker volume (`/var/www/music/`). This volume is shared with the `AudioStreamServer` container, which exposes its contents directly. This allows the frontend to access and stream the audio files from the following path: `http://your_server_IP/musicstream/`
 
------
+---
 
 ## Deployment
 
