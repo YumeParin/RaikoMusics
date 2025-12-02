@@ -21,7 +21,7 @@ jobs:
           node-version: "20"
 
       - name: Install Dependencies
-        run: npm run fci
+        run: npm ci
 
       - name: Run the Tests
         run: npm run test

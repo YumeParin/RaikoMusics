@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cd RaikoMusicsAPI & npm run test",
-    "fci": "cd RaikoMusicsAPI & npm ci"
+    "test": "cd RaikoMusicsAPI & npm run test"
   },
   "repository": {
     "type": "git",
