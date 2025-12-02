@@ -2,10 +2,10 @@ name: Deploy ReikoMusics
 
 on:
   push:
-    branches:  [ "main" ]
+    branches: ["main"]
 
 jobs:
-  test: 
+  test:
     runs-on: ubuntu-latest
 
     defaults:
@@ -18,13 +18,13 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
-        
-      - name: Install Dependenvies
-        run: npm ci
-      
+          node-version: "20"
+
+      - name: Install Dependencies
+        run: npm ci & npm run fci
+
       - name: Run the Tests
-        run: npm test
+        run: npm run test
 
   deploy:
     needs: test
@@ -43,5 +43,3 @@ jobs:
             # It also discards all the local chnages and commits
             git reset --hard origin/main
             bash deploy.sh
-
-

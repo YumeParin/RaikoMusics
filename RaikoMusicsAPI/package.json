@@ -6,6 +6,17 @@
     "start": "node src/index.js",
     "test": "jest --coverage"
   },
+  "jest": {
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 95,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    }
+  },
   "author": "",
   "license": "ISC",
   "description": "",

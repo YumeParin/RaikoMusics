@@ -1,5 +1,4 @@
 services:
-  # The Shrine Frontend
   frontend:
     build:
       context: ./raikoMusicsWeb
@@ -9,7 +8,6 @@ services:
     ports:
       - "6777:80"
 
-  # The Music Storehouse
   stream_server:
     build:
       context: ./AudioStreamServer
@@ -19,9 +17,8 @@ services:
     ports:
       - "6888:8080"
     volumes:
-      - music-data:/var/www/music  # Connects to the permanent treasury
+      - music-data:/var/www/music # Connects to the permanent volume
 
-  # The New Offering Hall
   raikomusics_api:
     build:
       context: ./RaikoMusicsAPI
@@ -29,10 +26,9 @@ services:
     container_name: raikomusics_api_container
     restart: unless-stopped
     ports:
-      - "6999:3000" # You can choose a different host port if you wish
+      - "6999:3000"
     volumes:
-      - music-data:/var/www/music  # Also connects to the same treasury
+      - music-data:/var/www/music # Also connects to the same volume
 
 volumes:
-  # Defines the permanent treasury
   music-data:
