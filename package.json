@@ -2,19 +2,19 @@
   "name": "raikomusics",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "",
   "scripts": {
     "test": "cd RaikoMusicsAPI & npm run test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AntoineTorrezSuzano/RaikoMusic.git"
+    "url": "git+https://github.com/YumeParin/RaikoMusics.git"
   },
   "keywords": [],
-  "author": "Yumeparin",
-  "license": "ISC",
+  "author": "YumeParin",
+  "license": "GPL-3.0-only",
   "bugs": {
-    "url": "https://github.com/AntoineTorrezSuzano/RaikoMusic/issues"
+    "url": "https://github.com/YumeParin/RaikoMusics/issues"
   },
-  "homepage": "https://github.com/AntoineTorrezSuzano/RaikoMusic#readme"
+  "homepage": "https://github.com/YumeParin/RaikoMusics#readme"
 }
